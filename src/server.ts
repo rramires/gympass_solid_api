@@ -4,7 +4,7 @@ import { env } from './env'
 app.listen({
     // '0.0.0.0' ensures access across all network interfaces
     host: '0.0.0.0',
-    port: env.HTTP_PORT
+    port: env.PORT
 }, (err, address) => {
     if (err) {
         console.error(err)
