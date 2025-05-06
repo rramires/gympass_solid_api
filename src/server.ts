@@ -1,9 +1,10 @@
-import { app } from "./app";
+import { app } from './app'
+import { env } from './env'
 
 app.listen({
     // '0.0.0.0' ensures access across all network interfaces
     host: '0.0.0.0',
-    port: 3333
+    port: env.HTTP_PORT
 }, (err, address) => {
     if (err) {
         console.error(err)
