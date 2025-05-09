@@ -8,7 +8,11 @@
     "compile": "npx tsc",
     "dist": "node dist/server.js",
     "build": "tsup",
-    "start": "node build/server.mjs"
+    "start": "node build/server.mjs",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "check": "prettier --check \"src/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\""
   },
   "repository": {
     "type": "git",
@@ -27,9 +31,15 @@
     "zod": "3.24.4"
   },
   "devDependencies": {
+    "@eslint/js": "9.26.0",
     "@types/node": "22.15.10",
+    "eslint": "9.26.0",
+    "eslint-config-prettier": "10.1.5",
+    "globals": "16.1.0",
+    "prettier": "3.5.3",
     "tsup": "8.4.0",
     "tsx": "4.19.4",
-    "typescript": "5.8.3"
+    "typescript": "5.8.3",
+    "typescript-eslint": "8.32.0"
   }
 }
