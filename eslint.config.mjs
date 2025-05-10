@@ -5,7 +5,7 @@ import { defineConfig } from 'eslint/config'
 import eslintConfigPrettier from 'eslint-config-prettier'
 
 export default defineConfig([
-	{ ignores: ['dist/*', 'build/*', 'src/entities/*'] },
+	{ ignores: ['dist/*', 'build/*', 'src/prisma-client/*'] },
 	{
 		files: ['**/*.{js,mjs,cjs,ts}'],
 		plugins: { js },
