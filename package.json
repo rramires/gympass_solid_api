@@ -12,7 +12,9 @@
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "check": "prettier --check \"src/**/*.ts\"",
-    "format": "prettier --write \"src/**/*.ts\""
+    "format": "prettier --write \"src/**/*.ts\"",
+    "migrate": "npx prisma migrate dev",
+    "showdb": "npx prisma studio"
   },
   "repository": {
     "type": "git",
