@@ -1,5 +1,6 @@
 import fastify from 'fastify'
-import { PrismaClient } from './prisma-client'
+import { z } from 'zod'
+import { prisma } from './lib/prisma'
 
 export const app = fastify()
 
@@ -7,14 +8,22 @@ app.get('/hello', () => {
 	return 'Hello from Fastfy!'
 })
 
-// test in your browser with http://localhost:3333/hello
+// Simple route
+app.post('/users', async (request, reply) => {
+	const bodySchema = z.object({
+		name: z.string(),
+		email: z.string().email(),
+		password: z.string().min(6),
+	})
+	const { name, email, password } = bodySchema.parse(request.body)
 
-// Test Prisma
-const prisma = new PrismaClient()
+	await prisma.user.create({
+		data: {
+			name,
+			email,
+			password_hash: password,
+		},
+	})
 
-prisma.user.create({
-	data: {
-		name: 'Fulano',
-		email: 'email@test.com',
-	},
+	return reply.status(201).send()
 })
