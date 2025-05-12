@@ -691,7 +691,9 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 export const CheckInScalarFieldEnum = {
   id: 'id',
   created_at: 'created_at',
-  validated_ad: 'validated_ad'
+  validated_ad: 'validated_ad',
+  user_id: 'user_id',
+  gym_id: 'gym_id'
 } as const
 
 export type CheckInScalarFieldEnum = (typeof CheckInScalarFieldEnum)[keyof typeof CheckInScalarFieldEnum]

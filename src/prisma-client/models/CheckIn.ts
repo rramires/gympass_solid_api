@@ -27,18 +27,24 @@ export type CheckInMinAggregateOutputType = {
   id: string | null
   created_at: Date | null
   validated_ad: Date | null
+  user_id: string | null
+  gym_id: string | null
 }
 
 export type CheckInMaxAggregateOutputType = {
   id: string | null
   created_at: Date | null
   validated_ad: Date | null
+  user_id: string | null
+  gym_id: string | null
 }
 
 export type CheckInCountAggregateOutputType = {
   id: number
   created_at: number
   validated_ad: number
+  user_id: number
+  gym_id: number
   _all: number
 }
 
@@ -47,18 +53,24 @@ export type CheckInMinAggregateInputType = {
   id?: true
   created_at?: true
   validated_ad?: true
+  user_id?: true
+  gym_id?: true
 }
 
 export type CheckInMaxAggregateInputType = {
   id?: true
   created_at?: true
   validated_ad?: true
+  user_id?: true
+  gym_id?: true
 }
 
 export type CheckInCountAggregateInputType = {
   id?: true
   created_at?: true
   validated_ad?: true
+  user_id?: true
+  gym_id?: true
   _all?: true
 }
 
@@ -138,6 +150,8 @@ export type CheckInGroupByOutputType = {
   id: string
   created_at: Date
   validated_ad: Date | null
+  user_id: string
+  gym_id: string
   _count: CheckInCountAggregateOutputType | null
   _min: CheckInMinAggregateOutputType | null
   _max: CheckInMaxAggregateOutputType | null
@@ -165,12 +179,20 @@ export type CheckInWhereInput = {
   id?: Prisma.StringFilter<"CheckIn"> | string
   created_at?: Prisma.DateTimeFilter<"CheckIn"> | Date | string
   validated_ad?: Prisma.DateTimeNullableFilter<"CheckIn"> | Date | string | null
+  user_id?: Prisma.StringFilter<"CheckIn"> | string
+  gym_id?: Prisma.StringFilter<"CheckIn"> | string
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  gyn?: Prisma.XOR<Prisma.GymScalarRelationFilter, Prisma.GymWhereInput>
 }
 
 export type CheckInOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   validated_ad?: Prisma.SortOrderInput | Prisma.SortOrder
+  user_id?: Prisma.SortOrder
+  gym_id?: Prisma.SortOrder
+  user?: Prisma.UserOrderByWithRelationInput
+  gyn?: Prisma.GymOrderByWithRelationInput
 }
 
 export type CheckInWhereUniqueInput = Prisma.AtLeast<{
@@ -180,12 +202,18 @@ export type CheckInWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.CheckInWhereInput | Prisma.CheckInWhereInput[]
   created_at?: Prisma.DateTimeFilter<"CheckIn"> | Date | string
   validated_ad?: Prisma.DateTimeNullableFilter<"CheckIn"> | Date | string | null
+  user_id?: Prisma.StringFilter<"CheckIn"> | string
+  gym_id?: Prisma.StringFilter<"CheckIn"> | string
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  gyn?: Prisma.XOR<Prisma.GymScalarRelationFilter, Prisma.GymWhereInput>
 }, "id">
 
 export type CheckInOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   validated_ad?: Prisma.SortOrderInput | Prisma.SortOrder
+  user_id?: Prisma.SortOrder
+  gym_id?: Prisma.SortOrder
   _count?: Prisma.CheckInCountOrderByAggregateInput
   _max?: Prisma.CheckInMaxOrderByAggregateInput
   _min?: Prisma.CheckInMinOrderByAggregateInput
@@ -198,36 +226,48 @@ export type CheckInScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"CheckIn"> | string
   created_at?: Prisma.DateTimeWithAggregatesFilter<"CheckIn"> | Date | string
   validated_ad?: Prisma.DateTimeNullableWithAggregatesFilter<"CheckIn"> | Date | string | null
+  user_id?: Prisma.StringWithAggregatesFilter<"CheckIn"> | string
+  gym_id?: Prisma.StringWithAggregatesFilter<"CheckIn"> | string
 }
 
 export type CheckInCreateInput = {
   id?: string
   created_at?: Date | string
   validated_ad?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutCheckInsInput
+  gyn: Prisma.GymCreateNestedOneWithoutCheckInsInput
 }
 
 export type CheckInUncheckedCreateInput = {
   id?: string
   created_at?: Date | string
   validated_ad?: Date | string | null
+  user_id: string
+  gym_id: string
 }
 
 export type CheckInUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   validated_ad?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutCheckInsNestedInput
+  gyn?: Prisma.GymUpdateOneRequiredWithoutCheckInsNestedInput
 }
 
 export type CheckInUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   validated_ad?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user_id?: Prisma.StringFieldUpdateOperationsInput | string
+  gym_id?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type CheckInCreateManyInput = {
   id?: string
   created_at?: Date | string
   validated_ad?: Date | string | null
+  user_id: string
+  gym_id: string
 }
 
 export type CheckInUpdateManyMutationInput = {
@@ -240,28 +280,277 @@ export type CheckInUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   validated_ad?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user_id?: Prisma.StringFieldUpdateOperationsInput | string
+  gym_id?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type CheckInListRelationFilter = {
+  every?: Prisma.CheckInWhereInput
+  some?: Prisma.CheckInWhereInput
+  none?: Prisma.CheckInWhereInput
+}
+
+export type CheckInOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type CheckInCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   validated_ad?: Prisma.SortOrder
+  user_id?: Prisma.SortOrder
+  gym_id?: Prisma.SortOrder
 }
 
 export type CheckInMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   validated_ad?: Prisma.SortOrder
+  user_id?: Prisma.SortOrder
+  gym_id?: Prisma.SortOrder
 }
 
 export type CheckInMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   validated_ad?: Prisma.SortOrder
+  user_id?: Prisma.SortOrder
+  gym_id?: Prisma.SortOrder
+}
+
+export type CheckInCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.CheckInCreateWithoutUserInput, Prisma.CheckInUncheckedCreateWithoutUserInput> | Prisma.CheckInCreateWithoutUserInput[] | Prisma.CheckInUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.CheckInCreateOrConnectWithoutUserInput | Prisma.CheckInCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.CheckInCreateManyUserInputEnvelope
+  connect?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+}
+
+export type CheckInUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.CheckInCreateWithoutUserInput, Prisma.CheckInUncheckedCreateWithoutUserInput> | Prisma.CheckInCreateWithoutUserInput[] | Prisma.CheckInUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.CheckInCreateOrConnectWithoutUserInput | Prisma.CheckInCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.CheckInCreateManyUserInputEnvelope
+  connect?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+}
+
+export type CheckInUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.CheckInCreateWithoutUserInput, Prisma.CheckInUncheckedCreateWithoutUserInput> | Prisma.CheckInCreateWithoutUserInput[] | Prisma.CheckInUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.CheckInCreateOrConnectWithoutUserInput | Prisma.CheckInCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.CheckInUpsertWithWhereUniqueWithoutUserInput | Prisma.CheckInUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.CheckInCreateManyUserInputEnvelope
+  set?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+  disconnect?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+  delete?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+  connect?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+  update?: Prisma.CheckInUpdateWithWhereUniqueWithoutUserInput | Prisma.CheckInUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.CheckInUpdateManyWithWhereWithoutUserInput | Prisma.CheckInUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.CheckInScalarWhereInput | Prisma.CheckInScalarWhereInput[]
+}
+
+export type CheckInUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.CheckInCreateWithoutUserInput, Prisma.CheckInUncheckedCreateWithoutUserInput> | Prisma.CheckInCreateWithoutUserInput[] | Prisma.CheckInUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.CheckInCreateOrConnectWithoutUserInput | Prisma.CheckInCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.CheckInUpsertWithWhereUniqueWithoutUserInput | Prisma.CheckInUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.CheckInCreateManyUserInputEnvelope
+  set?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+  disconnect?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+  delete?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+  connect?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+  update?: Prisma.CheckInUpdateWithWhereUniqueWithoutUserInput | Prisma.CheckInUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.CheckInUpdateManyWithWhereWithoutUserInput | Prisma.CheckInUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.CheckInScalarWhereInput | Prisma.CheckInScalarWhereInput[]
 }
 
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
+}
+
+export type CheckInCreateNestedManyWithoutGynInput = {
+  create?: Prisma.XOR<Prisma.CheckInCreateWithoutGynInput, Prisma.CheckInUncheckedCreateWithoutGynInput> | Prisma.CheckInCreateWithoutGynInput[] | Prisma.CheckInUncheckedCreateWithoutGynInput[]
+  connectOrCreate?: Prisma.CheckInCreateOrConnectWithoutGynInput | Prisma.CheckInCreateOrConnectWithoutGynInput[]
+  createMany?: Prisma.CheckInCreateManyGynInputEnvelope
+  connect?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+}
+
+export type CheckInUncheckedCreateNestedManyWithoutGynInput = {
+  create?: Prisma.XOR<Prisma.CheckInCreateWithoutGynInput, Prisma.CheckInUncheckedCreateWithoutGynInput> | Prisma.CheckInCreateWithoutGynInput[] | Prisma.CheckInUncheckedCreateWithoutGynInput[]
+  connectOrCreate?: Prisma.CheckInCreateOrConnectWithoutGynInput | Prisma.CheckInCreateOrConnectWithoutGynInput[]
+  createMany?: Prisma.CheckInCreateManyGynInputEnvelope
+  connect?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+}
+
+export type CheckInUpdateManyWithoutGynNestedInput = {
+  create?: Prisma.XOR<Prisma.CheckInCreateWithoutGynInput, Prisma.CheckInUncheckedCreateWithoutGynInput> | Prisma.CheckInCreateWithoutGynInput[] | Prisma.CheckInUncheckedCreateWithoutGynInput[]
+  connectOrCreate?: Prisma.CheckInCreateOrConnectWithoutGynInput | Prisma.CheckInCreateOrConnectWithoutGynInput[]
+  upsert?: Prisma.CheckInUpsertWithWhereUniqueWithoutGynInput | Prisma.CheckInUpsertWithWhereUniqueWithoutGynInput[]
+  createMany?: Prisma.CheckInCreateManyGynInputEnvelope
+  set?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+  disconnect?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+  delete?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+  connect?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+  update?: Prisma.CheckInUpdateWithWhereUniqueWithoutGynInput | Prisma.CheckInUpdateWithWhereUniqueWithoutGynInput[]
+  updateMany?: Prisma.CheckInUpdateManyWithWhereWithoutGynInput | Prisma.CheckInUpdateManyWithWhereWithoutGynInput[]
+  deleteMany?: Prisma.CheckInScalarWhereInput | Prisma.CheckInScalarWhereInput[]
+}
+
+export type CheckInUncheckedUpdateManyWithoutGynNestedInput = {
+  create?: Prisma.XOR<Prisma.CheckInCreateWithoutGynInput, Prisma.CheckInUncheckedCreateWithoutGynInput> | Prisma.CheckInCreateWithoutGynInput[] | Prisma.CheckInUncheckedCreateWithoutGynInput[]
+  connectOrCreate?: Prisma.CheckInCreateOrConnectWithoutGynInput | Prisma.CheckInCreateOrConnectWithoutGynInput[]
+  upsert?: Prisma.CheckInUpsertWithWhereUniqueWithoutGynInput | Prisma.CheckInUpsertWithWhereUniqueWithoutGynInput[]
+  createMany?: Prisma.CheckInCreateManyGynInputEnvelope
+  set?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+  disconnect?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+  delete?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+  connect?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+  update?: Prisma.CheckInUpdateWithWhereUniqueWithoutGynInput | Prisma.CheckInUpdateWithWhereUniqueWithoutGynInput[]
+  updateMany?: Prisma.CheckInUpdateManyWithWhereWithoutGynInput | Prisma.CheckInUpdateManyWithWhereWithoutGynInput[]
+  deleteMany?: Prisma.CheckInScalarWhereInput | Prisma.CheckInScalarWhereInput[]
+}
+
+export type CheckInCreateWithoutUserInput = {
+  id?: string
+  created_at?: Date | string
+  validated_ad?: Date | string | null
+  gyn: Prisma.GymCreateNestedOneWithoutCheckInsInput
+}
+
+export type CheckInUncheckedCreateWithoutUserInput = {
+  id?: string
+  created_at?: Date | string
+  validated_ad?: Date | string | null
+  gym_id: string
+}
+
+export type CheckInCreateOrConnectWithoutUserInput = {
+  where: Prisma.CheckInWhereUniqueInput
+  create: Prisma.XOR<Prisma.CheckInCreateWithoutUserInput, Prisma.CheckInUncheckedCreateWithoutUserInput>
+}
+
+export type CheckInCreateManyUserInputEnvelope = {
+  data: Prisma.CheckInCreateManyUserInput | Prisma.CheckInCreateManyUserInput[]
+  skipDuplicates?: boolean
+}
+
+export type CheckInUpsertWithWhereUniqueWithoutUserInput = {
+  where: Prisma.CheckInWhereUniqueInput
+  update: Prisma.XOR<Prisma.CheckInUpdateWithoutUserInput, Prisma.CheckInUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.CheckInCreateWithoutUserInput, Prisma.CheckInUncheckedCreateWithoutUserInput>
+}
+
+export type CheckInUpdateWithWhereUniqueWithoutUserInput = {
+  where: Prisma.CheckInWhereUniqueInput
+  data: Prisma.XOR<Prisma.CheckInUpdateWithoutUserInput, Prisma.CheckInUncheckedUpdateWithoutUserInput>
+}
+
+export type CheckInUpdateManyWithWhereWithoutUserInput = {
+  where: Prisma.CheckInScalarWhereInput
+  data: Prisma.XOR<Prisma.CheckInUpdateManyMutationInput, Prisma.CheckInUncheckedUpdateManyWithoutUserInput>
+}
+
+export type CheckInScalarWhereInput = {
+  AND?: Prisma.CheckInScalarWhereInput | Prisma.CheckInScalarWhereInput[]
+  OR?: Prisma.CheckInScalarWhereInput[]
+  NOT?: Prisma.CheckInScalarWhereInput | Prisma.CheckInScalarWhereInput[]
+  id?: Prisma.StringFilter<"CheckIn"> | string
+  created_at?: Prisma.DateTimeFilter<"CheckIn"> | Date | string
+  validated_ad?: Prisma.DateTimeNullableFilter<"CheckIn"> | Date | string | null
+  user_id?: Prisma.StringFilter<"CheckIn"> | string
+  gym_id?: Prisma.StringFilter<"CheckIn"> | string
+}
+
+export type CheckInCreateWithoutGynInput = {
+  id?: string
+  created_at?: Date | string
+  validated_ad?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutCheckInsInput
+}
+
+export type CheckInUncheckedCreateWithoutGynInput = {
+  id?: string
+  created_at?: Date | string
+  validated_ad?: Date | string | null
+  user_id: string
+}
+
+export type CheckInCreateOrConnectWithoutGynInput = {
+  where: Prisma.CheckInWhereUniqueInput
+  create: Prisma.XOR<Prisma.CheckInCreateWithoutGynInput, Prisma.CheckInUncheckedCreateWithoutGynInput>
+}
+
+export type CheckInCreateManyGynInputEnvelope = {
+  data: Prisma.CheckInCreateManyGynInput | Prisma.CheckInCreateManyGynInput[]
+  skipDuplicates?: boolean
+}
+
+export type CheckInUpsertWithWhereUniqueWithoutGynInput = {
+  where: Prisma.CheckInWhereUniqueInput
+  update: Prisma.XOR<Prisma.CheckInUpdateWithoutGynInput, Prisma.CheckInUncheckedUpdateWithoutGynInput>
+  create: Prisma.XOR<Prisma.CheckInCreateWithoutGynInput, Prisma.CheckInUncheckedCreateWithoutGynInput>
+}
+
+export type CheckInUpdateWithWhereUniqueWithoutGynInput = {
+  where: Prisma.CheckInWhereUniqueInput
+  data: Prisma.XOR<Prisma.CheckInUpdateWithoutGynInput, Prisma.CheckInUncheckedUpdateWithoutGynInput>
+}
+
+export type CheckInUpdateManyWithWhereWithoutGynInput = {
+  where: Prisma.CheckInScalarWhereInput
+  data: Prisma.XOR<Prisma.CheckInUpdateManyMutationInput, Prisma.CheckInUncheckedUpdateManyWithoutGynInput>
+}
+
+export type CheckInCreateManyUserInput = {
+  id?: string
+  created_at?: Date | string
+  validated_ad?: Date | string | null
+  gym_id: string
+}
+
+export type CheckInUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  validated_ad?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gyn?: Prisma.GymUpdateOneRequiredWithoutCheckInsNestedInput
+}
+
+export type CheckInUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  validated_ad?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gym_id?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type CheckInUncheckedUpdateManyWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  validated_ad?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gym_id?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type CheckInCreateManyGynInput = {
+  id?: string
+  created_at?: Date | string
+  validated_ad?: Date | string | null
+  user_id: string
+}
+
+export type CheckInUpdateWithoutGynInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  validated_ad?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutCheckInsNestedInput
+}
+
+export type CheckInUncheckedUpdateWithoutGynInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  validated_ad?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user_id?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type CheckInUncheckedUpdateManyWithoutGynInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  validated_ad?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user_id?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -270,35 +559,66 @@ export type CheckInSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   id?: boolean
   created_at?: boolean
   validated_ad?: boolean
+  user_id?: boolean
+  gym_id?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  gyn?: boolean | Prisma.GymDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["checkIn"]>
 
 export type CheckInSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   created_at?: boolean
   validated_ad?: boolean
+  user_id?: boolean
+  gym_id?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  gyn?: boolean | Prisma.GymDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["checkIn"]>
 
 export type CheckInSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   created_at?: boolean
   validated_ad?: boolean
+  user_id?: boolean
+  gym_id?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  gyn?: boolean | Prisma.GymDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["checkIn"]>
 
 export type CheckInSelectScalar = {
   id?: boolean
   created_at?: boolean
   validated_ad?: boolean
+  user_id?: boolean
+  gym_id?: boolean
 }
 
-export type CheckInOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "created_at" | "validated_ad", ExtArgs["result"]["checkIn"]>
+export type CheckInOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "created_at" | "validated_ad" | "user_id" | "gym_id", ExtArgs["result"]["checkIn"]>
+export type CheckInInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  gyn?: boolean | Prisma.GymDefaultArgs<ExtArgs>
+}
+export type CheckInIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  gyn?: boolean | Prisma.GymDefaultArgs<ExtArgs>
+}
+export type CheckInIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  gyn?: boolean | Prisma.GymDefaultArgs<ExtArgs>
+}
 
 export type $CheckInPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "CheckIn"
-  objects: {}
+  objects: {
+    user: Prisma.$UserPayload<ExtArgs>
+    gyn: Prisma.$GymPayload<ExtArgs>
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     created_at: Date
     validated_ad: Date | null
+    user_id: string
+    gym_id: string
   }, ExtArgs["result"]["checkIn"]>
   composites: {}
 }
@@ -693,6 +1013,8 @@ readonly fields: CheckInFieldRefs;
  */
 export interface Prisma__CheckInClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  gyn<T extends Prisma.GymDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GymDefaultArgs<ExtArgs>>): Prisma.Prisma__GymClient<runtime.Types.Result.GetResult<Prisma.$GymPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -725,6 +1047,8 @@ export interface CheckInFieldRefs {
   readonly id: Prisma.FieldRef<"CheckIn", 'String'>
   readonly created_at: Prisma.FieldRef<"CheckIn", 'DateTime'>
   readonly validated_ad: Prisma.FieldRef<"CheckIn", 'DateTime'>
+  readonly user_id: Prisma.FieldRef<"CheckIn", 'String'>
+  readonly gym_id: Prisma.FieldRef<"CheckIn", 'String'>
 }
     
 
@@ -741,6 +1065,10 @@ export type CheckInFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the CheckIn
    */
   omit?: Prisma.CheckInOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CheckInInclude<ExtArgs> | null
   /**
    * Filter, which CheckIn to fetch.
    */
@@ -760,6 +1088,10 @@ export type CheckInFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.CheckInOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CheckInInclude<ExtArgs> | null
+  /**
    * Filter, which CheckIn to fetch.
    */
   where: Prisma.CheckInWhereUniqueInput
@@ -777,6 +1109,10 @@ export type CheckInFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the CheckIn
    */
   omit?: Prisma.CheckInOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CheckInInclude<ExtArgs> | null
   /**
    * Filter, which CheckIn to fetch.
    */
@@ -826,6 +1162,10 @@ export type CheckInFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.CheckInOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CheckInInclude<ExtArgs> | null
+  /**
    * Filter, which CheckIn to fetch.
    */
   where?: Prisma.CheckInWhereInput
@@ -874,6 +1214,10 @@ export type CheckInFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.CheckInOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CheckInInclude<ExtArgs> | null
+  /**
    * Filter, which CheckIns to fetch.
    */
   where?: Prisma.CheckInWhereInput
@@ -917,9 +1261,13 @@ export type CheckInCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.CheckInOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CheckInInclude<ExtArgs> | null
+  /**
    * The data needed to create a CheckIn.
    */
-  data?: Prisma.XOR<Prisma.CheckInCreateInput, Prisma.CheckInUncheckedCreateInput>
+  data: Prisma.XOR<Prisma.CheckInCreateInput, Prisma.CheckInUncheckedCreateInput>
 }
 
 /**
@@ -950,6 +1298,10 @@ export type CheckInCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensi
    */
   data: Prisma.CheckInCreateManyInput | Prisma.CheckInCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CheckInIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -964,6 +1316,10 @@ export type CheckInUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the CheckIn
    */
   omit?: Prisma.CheckInOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CheckInInclude<ExtArgs> | null
   /**
    * The data needed to update a CheckIn.
    */
@@ -1016,6 +1372,10 @@ export type CheckInUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensi
    * Limit how many CheckIns to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CheckInIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1030,6 +1390,10 @@ export type CheckInUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the CheckIn
    */
   omit?: Prisma.CheckInOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CheckInInclude<ExtArgs> | null
   /**
    * The filter to search for the CheckIn to update in case it exists.
    */
@@ -1056,6 +1420,10 @@ export type CheckInDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the CheckIn
    */
   omit?: Prisma.CheckInOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CheckInInclude<ExtArgs> | null
   /**
    * Filter which CheckIn to delete.
    */
@@ -1088,4 +1456,8 @@ export type CheckInDefaultArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the CheckIn
    */
   omit?: Prisma.CheckInOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CheckInInclude<ExtArgs> | null
 }

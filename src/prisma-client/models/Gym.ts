@@ -227,6 +227,7 @@ export type GymWhereInput = {
   phone?: Prisma.StringNullableFilter<"Gym"> | string | null
   latitude?: Prisma.DecimalFilter<"Gym"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   longitude?: Prisma.DecimalFilter<"Gym"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  checkIns?: Prisma.CheckInListRelationFilter
 }
 
 export type GymOrderByWithRelationInput = {
@@ -236,6 +237,7 @@ export type GymOrderByWithRelationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
+  checkIns?: Prisma.CheckInOrderByRelationAggregateInput
 }
 
 export type GymWhereUniqueInput = Prisma.AtLeast<{
@@ -248,6 +250,7 @@ export type GymWhereUniqueInput = Prisma.AtLeast<{
   phone?: Prisma.StringNullableFilter<"Gym"> | string | null
   latitude?: Prisma.DecimalFilter<"Gym"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   longitude?: Prisma.DecimalFilter<"Gym"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  checkIns?: Prisma.CheckInListRelationFilter
 }, "id">
 
 export type GymOrderByWithAggregationInput = {
@@ -283,6 +286,7 @@ export type GymCreateInput = {
   phone?: string | null
   latitude: runtime.Decimal | runtime.DecimalJsLike | number | string
   longitude: runtime.Decimal | runtime.DecimalJsLike | number | string
+  checkIns?: Prisma.CheckInCreateNestedManyWithoutGynInput
 }
 
 export type GymUncheckedCreateInput = {
@@ -292,6 +296,7 @@ export type GymUncheckedCreateInput = {
   phone?: string | null
   latitude: runtime.Decimal | runtime.DecimalJsLike | number | string
   longitude: runtime.Decimal | runtime.DecimalJsLike | number | string
+  checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutGynInput
 }
 
 export type GymUpdateInput = {
@@ -301,6 +306,7 @@ export type GymUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   longitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  checkIns?: Prisma.CheckInUpdateManyWithoutGynNestedInput
 }
 
 export type GymUncheckedUpdateInput = {
@@ -310,6 +316,7 @@ export type GymUncheckedUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   longitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutGynNestedInput
 }
 
 export type GymCreateManyInput = {
@@ -337,6 +344,11 @@ export type GymUncheckedUpdateManyInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   longitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
+export type GymScalarRelationFilter = {
+  is?: Prisma.GymWhereInput
+  isNot?: Prisma.GymWhereInput
 }
 
 export type GymCountOrderByAggregateInput = {
@@ -376,6 +388,20 @@ export type GymSumOrderByAggregateInput = {
   longitude?: Prisma.SortOrder
 }
 
+export type GymCreateNestedOneWithoutCheckInsInput = {
+  create?: Prisma.XOR<Prisma.GymCreateWithoutCheckInsInput, Prisma.GymUncheckedCreateWithoutCheckInsInput>
+  connectOrCreate?: Prisma.GymCreateOrConnectWithoutCheckInsInput
+  connect?: Prisma.GymWhereUniqueInput
+}
+
+export type GymUpdateOneRequiredWithoutCheckInsNestedInput = {
+  create?: Prisma.XOR<Prisma.GymCreateWithoutCheckInsInput, Prisma.GymUncheckedCreateWithoutCheckInsInput>
+  connectOrCreate?: Prisma.GymCreateOrConnectWithoutCheckInsInput
+  upsert?: Prisma.GymUpsertWithoutCheckInsInput
+  connect?: Prisma.GymWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GymUpdateToOneWithWhereWithoutCheckInsInput, Prisma.GymUpdateWithoutCheckInsInput>, Prisma.GymUncheckedUpdateWithoutCheckInsInput>
+}
+
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
@@ -388,6 +414,87 @@ export type DecimalFieldUpdateOperationsInput = {
   divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
+export type GymCreateWithoutCheckInsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  phone?: string | null
+  latitude: runtime.Decimal | runtime.DecimalJsLike | number | string
+  longitude: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
+export type GymUncheckedCreateWithoutCheckInsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  phone?: string | null
+  latitude: runtime.Decimal | runtime.DecimalJsLike | number | string
+  longitude: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
+export type GymCreateOrConnectWithoutCheckInsInput = {
+  where: Prisma.GymWhereUniqueInput
+  create: Prisma.XOR<Prisma.GymCreateWithoutCheckInsInput, Prisma.GymUncheckedCreateWithoutCheckInsInput>
+}
+
+export type GymUpsertWithoutCheckInsInput = {
+  update: Prisma.XOR<Prisma.GymUpdateWithoutCheckInsInput, Prisma.GymUncheckedUpdateWithoutCheckInsInput>
+  create: Prisma.XOR<Prisma.GymCreateWithoutCheckInsInput, Prisma.GymUncheckedCreateWithoutCheckInsInput>
+  where?: Prisma.GymWhereInput
+}
+
+export type GymUpdateToOneWithWhereWithoutCheckInsInput = {
+  where?: Prisma.GymWhereInput
+  data: Prisma.XOR<Prisma.GymUpdateWithoutCheckInsInput, Prisma.GymUncheckedUpdateWithoutCheckInsInput>
+}
+
+export type GymUpdateWithoutCheckInsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  longitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
+export type GymUncheckedUpdateWithoutCheckInsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  longitude?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
+
+/**
+ * Count Type GymCountOutputType
+ */
+
+export type GymCountOutputType = {
+  checkIns: number
+}
+
+export type GymCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  checkIns?: boolean | GymCountOutputTypeCountCheckInsArgs
+}
+
+/**
+ * GymCountOutputType without action
+ */
+export type GymCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GymCountOutputType
+   */
+  select?: Prisma.GymCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * GymCountOutputType without action
+ */
+export type GymCountOutputTypeCountCheckInsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CheckInWhereInput
+}
 
 
 export type GymSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -397,6 +504,8 @@ export type GymSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   phone?: boolean
   latitude?: boolean
   longitude?: boolean
+  checkIns?: boolean | Prisma.Gym$checkInsArgs<ExtArgs>
+  _count?: boolean | Prisma.GymCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["gym"]>
 
 export type GymSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -427,10 +536,18 @@ export type GymSelectScalar = {
 }
 
 export type GymOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "phone" | "latitude" | "longitude", ExtArgs["result"]["gym"]>
+export type GymInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  checkIns?: boolean | Prisma.Gym$checkInsArgs<ExtArgs>
+  _count?: boolean | Prisma.GymCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type GymIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type GymIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $GymPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Gym"
-  objects: {}
+  objects: {
+    checkIns: Prisma.$CheckInPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     title: string
@@ -832,6 +949,7 @@ readonly fields: GymFieldRefs;
  */
 export interface Prisma__GymClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  checkIns<T extends Prisma.Gym$checkInsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Gym$checkInsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CheckInPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -884,6 +1002,10 @@ export type GymFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.GymOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GymInclude<ExtArgs> | null
+  /**
    * Filter, which Gym to fetch.
    */
   where: Prisma.GymWhereUniqueInput
@@ -902,6 +1024,10 @@ export type GymFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.GymOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GymInclude<ExtArgs> | null
+  /**
    * Filter, which Gym to fetch.
    */
   where: Prisma.GymWhereUniqueInput
@@ -919,6 +1045,10 @@ export type GymFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the Gym
    */
   omit?: Prisma.GymOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GymInclude<ExtArgs> | null
   /**
    * Filter, which Gym to fetch.
    */
@@ -968,6 +1098,10 @@ export type GymFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.Int
    */
   omit?: Prisma.GymOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GymInclude<ExtArgs> | null
+  /**
    * Filter, which Gym to fetch.
    */
   where?: Prisma.GymWhereInput
@@ -1016,6 +1150,10 @@ export type GymFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    */
   omit?: Prisma.GymOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GymInclude<ExtArgs> | null
+  /**
    * Filter, which Gyms to fetch.
    */
   where?: Prisma.GymWhereInput
@@ -1058,6 +1196,10 @@ export type GymCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs 
    * Omit specific fields from the Gym
    */
   omit?: Prisma.GymOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GymInclude<ExtArgs> | null
   /**
    * The data needed to create a Gym.
    */
@@ -1106,6 +1248,10 @@ export type GymUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs 
    * Omit specific fields from the Gym
    */
   omit?: Prisma.GymOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GymInclude<ExtArgs> | null
   /**
    * The data needed to update a Gym.
    */
@@ -1173,6 +1319,10 @@ export type GymUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs 
    */
   omit?: Prisma.GymOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GymInclude<ExtArgs> | null
+  /**
    * The filter to search for the Gym to update in case it exists.
    */
   where: Prisma.GymWhereUniqueInput
@@ -1199,6 +1349,10 @@ export type GymDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs 
    */
   omit?: Prisma.GymOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GymInclude<ExtArgs> | null
+  /**
    * Filter which Gym to delete.
    */
   where: Prisma.GymWhereUniqueInput
@@ -1219,6 +1373,30 @@ export type GymDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 }
 
 /**
+ * Gym.checkIns
+ */
+export type Gym$checkInsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CheckIn
+   */
+  select?: Prisma.CheckInSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CheckIn
+   */
+  omit?: Prisma.CheckInOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CheckInInclude<ExtArgs> | null
+  where?: Prisma.CheckInWhereInput
+  orderBy?: Prisma.CheckInOrderByWithRelationInput | Prisma.CheckInOrderByWithRelationInput[]
+  cursor?: Prisma.CheckInWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CheckInScalarFieldEnum | Prisma.CheckInScalarFieldEnum[]
+}
+
+/**
  * Gym without action
  */
 export type GymDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1230,4 +1408,8 @@ export type GymDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    * Omit specific fields from the Gym
    */
   omit?: Prisma.GymOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GymInclude<ExtArgs> | null
 }
