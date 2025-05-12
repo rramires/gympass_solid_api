@@ -13,6 +13,9 @@
     "lint:fix": "eslint . --ext .ts --fix",
     "check": "prettier --check \"src/**/*.ts\"",
     "format": "prettier --write \"src/**/*.ts\"",
+    "compose:up": "docker compose up -d",
+    "compose:stop": "docker compose stop",
+    "compose:down": "docker compose down",
     "migrate": "npx prisma migrate dev",
     "showdb": "npx prisma studio"
   },

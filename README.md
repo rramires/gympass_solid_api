@@ -5,23 +5,29 @@ GymPass style API using SOLID standards
 #### To create a Postgres instance in Docker for development:
 
 ```sh
-docker compose up -d
+npm run compose:up
 ```
 
-To stop
+To stop docker instance
 
 ```sh
-docker compose stop
+npm run compose:stop
 ```
 
-To remove instance
+To remove docker instance
 
 ```sh
-docker compose down
+npm run compose:down
 ```
 
 #### To create database:
 
 ```sh
-npx prisma migrate dev
+npm run migrate
+```
+
+To view database in Prisma Studio
+
+```sh
+npm run showdb
 ```

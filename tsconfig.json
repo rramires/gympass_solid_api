@@ -112,6 +112,7 @@
   },
   "exclude": [
     "__tests__",
-    "tsup.config.ts"
+    "tsup.config.ts",
+    "src/prisma-client"
   ]
 }

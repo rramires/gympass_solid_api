@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   gympass-pg:
     image: bitnami/postgresql
