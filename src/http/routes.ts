@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify'
 import { hello } from './controllers/hello'
-import { register } from './controllers/register'
+import { register } from './controllers/register-controller'
 
 export async function appRoutes(app: FastifyInstance) {
 	// Hello World
