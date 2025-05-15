@@ -1,4 +1,4 @@
-import { UsersRepository } from '@/repositories/users-repository'
+import { IUsersRepository } from '@/repositories/i-users-repository'
 import { hash } from 'bcryptjs'
 
 interface RegisterUseCaseRequest {
@@ -8,7 +8,7 @@ interface RegisterUseCaseRequest {
 }
 
 export class RegisterUseCase {
-	constructor(private usersRepository: UsersRepository) {}
+	constructor(private usersRepository: IUsersRepository) {}
 	/* 
 		Hack: Using "private" or "public" in the constructor parameters does 
 		the same as declaring the property before the constructor and then assigning this:
@@ -20,13 +20,14 @@ export class RegisterUseCase {
 	*/
 
 	async execute({ name, email, password }: RegisterUseCaseRequest) {
+		// check email
 		const userWithSameEmail = await this.usersRepository.findByEmail(email)
 		if (userWithSameEmail) {
 			throw new Error('E-mail already exists.')
 		}
-
+		// hash
 		const password_hash = await hash(password, 12)
-
+		// call persistence
 		await this.usersRepository.create({
 			name,
 			email,

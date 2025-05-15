@@ -4,7 +4,7 @@ import { PrismaUsersRepository } from '@/repositories/prisma/prisma-users-reposi
 // import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
 import { RegisterUseCase } from '@/use-cases/register-use-case'
 
-export async function register(request: FastifyRequest, reply: FastifyReply) {
+export async function registerController(request: FastifyRequest, reply: FastifyReply) {
 	const bodySchema = z.object({
 		name: z.string(),
 		email: z.string().email(),
