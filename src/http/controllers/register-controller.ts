@@ -31,8 +31,8 @@ export async function registerController(request: FastifyRequest, reply: Fastify
 			// 409 Conflict
 			return reply.status(409).send({ message: err.message })
 		}
-		// 500 Internal Server Error
-		return reply.status(500).send() // FIXME Generic error is a bad idea
+		// Other unspecified errors (Fastify capture this)
+		throw err
 	}
 
 	return reply.status(201).send()
