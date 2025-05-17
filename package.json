@@ -17,7 +17,9 @@
     "compose:stop": "docker compose stop",
     "compose:down": "docker compose down",
     "migrate": "npx prisma migrate dev",
-    "showdb": "npx prisma studio"
+    "showdb": "npx prisma studio",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "repository": {
     "type": "git",
@@ -49,6 +51,8 @@
     "tsup": "8.4.0",
     "tsx": "4.19.4",
     "typescript": "5.8.3",
-    "typescript-eslint": "8.32.0"
+    "typescript-eslint": "8.32.0",
+    "vite-tsconfig-paths": "5.1.4",
+    "vitest": "3.1.3"
   }
 }
