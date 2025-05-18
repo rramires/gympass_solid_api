@@ -35,7 +35,9 @@ describe('Register Use Case', () => {
 		await registerUsecase.execute(newUser)
 
 		// add same email - return error
-		expect(registerUsecase.execute(newUser)).rejects.toBeInstanceOf(UserAlreadyExistsError)
+		await expect(registerUsecase.execute(newUser)).rejects.toBeInstanceOf(
+			UserAlreadyExistsError,
+		)
 	})
 
 	it('should be able to register', async () => {
