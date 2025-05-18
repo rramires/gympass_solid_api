@@ -37,4 +37,19 @@ describe('Register Use Case', () => {
 		// add same email - return error
 		expect(registerUsecase.execute(newUser)).rejects.toBeInstanceOf(UserAlreadyExistsError)
 	})
+
+	it('should be able to register', async () => {
+		// in-memory mock database
+		const usersRepository = new InMemoryUsersRepository()
+		const registerUsecase = new RegisterUseCase(usersRepository)
+
+		// add
+		const { user } = await registerUsecase.execute({
+			name: 'Jhon Doe',
+			email: 'jhondoe@email.com',
+			password: 'abc123',
+		})
+		// return id string
+		expect(user.id).toEqual(expect.any(String))
+	})
 })
