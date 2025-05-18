@@ -5,7 +5,7 @@ import { compare } from 'bcryptjs'
 
 describe('Register Use Case', () => {
 	it('should be possible to hash the password when registering a new user', async () => {
-		const mockUsersRepository = {
+		const mockUsersRepository: IUsersRepository = {
 			async findByEmail() {
 				return null
 			},
@@ -18,7 +18,7 @@ describe('Register Use Case', () => {
 					created_at: new Date(),
 				}
 			},
-		} as IUsersRepository
+		}
 
 		const registerUsecase = new RegisterUseCase(mockUsersRepository)
 
