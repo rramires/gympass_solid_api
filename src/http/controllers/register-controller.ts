@@ -1,9 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
-import { PrismaUsersRepository } from '@/repositories/prisma/prisma-users-repository'
-// import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
-import { RegisterUseCase } from '@/use-cases/register-use-case'
 import { UserAlreadyExistsError } from '@/use-cases/errors/user-already-exists-error'
+import { makeRegisterUseCase } from '@/use-cases/factories/make-register-use-case'
 
 export async function registerController(request: FastifyRequest, reply: FastifyReply) {
 	const bodySchema = z.object({
@@ -14,13 +12,8 @@ export async function registerController(request: FastifyRequest, reply: Fastify
 	const { name, email, password } = bodySchema.parse(request.body)
 
 	try {
-		/*
-			Dependency Inversion Principle (DIP)
-		*/
-		const usersRepository = new PrismaUsersRepository()
-		// or
-		// const usersRepository = new InMemoryUsersRepository()
-		const registerUseCase = new RegisterUseCase(usersRepository)
+		const registerUseCase = makeRegisterUseCase()
+
 		await registerUseCase.execute({
 			name,
 			email,
