@@ -8,10 +8,10 @@ describe('Register Use Case', () => {
 	it('should be possible to hash the password when registering a new user', async () => {
 		// in-memory mock database
 		const usersRepository = new InMemoryUsersRepository()
-		const registerUsecase = new RegisterUseCase(usersRepository)
+		const sut = new RegisterUseCase(usersRepository)
 
 		const password = 'abc123'
-		const { user } = await registerUsecase.execute({
+		const { user } = await sut.execute({
 			name: 'Jhon Doe',
 			email: 'jhondoe@email.com',
 			password,
@@ -24,7 +24,7 @@ describe('Register Use Case', () => {
 	it('should not be able to register with same email twice', async () => {
 		// in-memory mock database
 		const usersRepository = new InMemoryUsersRepository()
-		const registerUsecase = new RegisterUseCase(usersRepository)
+		const sut = new RegisterUseCase(usersRepository)
 
 		const newUser = {
 			name: 'Jhon Doe',
@@ -32,21 +32,19 @@ describe('Register Use Case', () => {
 			password: 'abc123',
 		}
 		// add
-		await registerUsecase.execute(newUser)
+		await sut.execute(newUser)
 
 		// add same email - return error
-		await expect(registerUsecase.execute(newUser)).rejects.toBeInstanceOf(
-			UserAlreadyExistsError,
-		)
+		await expect(sut.execute(newUser)).rejects.toBeInstanceOf(UserAlreadyExistsError)
 	})
 
 	it('should be able to register', async () => {
 		// in-memory mock database
 		const usersRepository = new InMemoryUsersRepository()
-		const registerUsecase = new RegisterUseCase(usersRepository)
+		const sut = new RegisterUseCase(usersRepository)
 
 		// add
-		const { user } = await registerUsecase.execute({
+		const { user } = await sut.execute({
 			name: 'Jhon Doe',
 			email: 'jhondoe@email.com',
 			password: 'abc123',
