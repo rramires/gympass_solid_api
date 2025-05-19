@@ -3,23 +3,29 @@ import { expect, describe, it } from 'vitest'
 import { AuthenticateUseCase } from '../authenticate-use-case'
 import { hash } from 'bcryptjs'
 import { InvalidCredentialsError } from './invalid-credentials-error'
+import { beforeEach } from 'vitest'
+
+let usersRepository: InMemoryUsersRepository
+const newUser = {
+	name: 'Jhon Doe',
+	email: 'jhondoe@email.com',
+	password: 'abc123',
+}
+let sut: AuthenticateUseCase
 
 describe('Authenticate Use Case', () => {
-	it('should be able to authenticate', async () => {
-		const newUser = {
-			name: 'Jhon Doe',
-			email: 'jhondoe@email.com',
-			password: 'abc123',
-		}
-		const usersRepository = new InMemoryUsersRepository()
+	beforeEach(async () => {
+		usersRepository = new InMemoryUsersRepository()
 		await usersRepository.create({
 			name: newUser.name,
 			email: newUser.email,
 			password_hash: await hash(newUser.password, 12),
 		})
 
-		const sut = new AuthenticateUseCase(usersRepository)
+		sut = new AuthenticateUseCase(usersRepository)
+	})
 
+	it('should be able to authenticate', async () => {
 		// authenticate
 		const { user } = await sut.execute({
 			email: newUser.email,
@@ -29,20 +35,6 @@ describe('Authenticate Use Case', () => {
 	})
 
 	it('should not be able to authenticate with wrong email', async () => {
-		const newUser = {
-			name: 'Jhon Doe',
-			email: 'jhondoe@email.com',
-			password: 'abc123',
-		}
-		const usersRepository = new InMemoryUsersRepository()
-		await usersRepository.create({
-			name: newUser.name,
-			email: newUser.email,
-			password_hash: await hash(newUser.password, 12),
-		})
-
-		const sut = new AuthenticateUseCase(usersRepository)
-
 		// authenticate with wrong email
 		await expect(
 			sut.execute({
@@ -53,20 +45,6 @@ describe('Authenticate Use Case', () => {
 	})
 
 	it('should not be able to authenticate (password)', async () => {
-		const newUser = {
-			name: 'Jhon Doe',
-			email: 'jhondoe@email.com',
-			password: 'abc123',
-		}
-		const usersRepository = new InMemoryUsersRepository()
-		await usersRepository.create({
-			name: newUser.name,
-			email: newUser.email,
-			password_hash: await hash(newUser.password, 12),
-		})
-
-		const sut = new AuthenticateUseCase(usersRepository)
-
 		// authenticate with wrong password
 		await expect(
 			sut.execute({

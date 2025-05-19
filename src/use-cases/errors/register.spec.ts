@@ -3,13 +3,19 @@ import { RegisterUseCase } from '../register-use-case'
 import { compare } from 'bcryptjs'
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
 import { UserAlreadyExistsError } from './user-already-exists-error'
+import { beforeEach } from 'vitest'
+
+let usersRepository: InMemoryUsersRepository
+let sut: RegisterUseCase
 
 describe('Register Use Case', () => {
-	it('should be possible to hash the password when registering a new user', async () => {
+	beforeEach(() => {
 		// in-memory mock database
-		const usersRepository = new InMemoryUsersRepository()
-		const sut = new RegisterUseCase(usersRepository)
+		usersRepository = new InMemoryUsersRepository()
+		sut = new RegisterUseCase(usersRepository)
+	})
 
+	it('should be possible to hash the password when registering a new user', async () => {
 		const password = 'abc123'
 		const { user } = await sut.execute({
 			name: 'Jhon Doe',
@@ -22,10 +28,6 @@ describe('Register Use Case', () => {
 	})
 
 	it('should not be able to register with same email twice', async () => {
-		// in-memory mock database
-		const usersRepository = new InMemoryUsersRepository()
-		const sut = new RegisterUseCase(usersRepository)
-
 		const newUser = {
 			name: 'Jhon Doe',
 			email: 'jhondoe@email.com',
@@ -39,10 +41,6 @@ describe('Register Use Case', () => {
 	})
 
 	it('should be able to register', async () => {
-		// in-memory mock database
-		const usersRepository = new InMemoryUsersRepository()
-		const sut = new RegisterUseCase(usersRepository)
-
 		// add
 		const { user } = await sut.execute({
 			name: 'Jhon Doe',
