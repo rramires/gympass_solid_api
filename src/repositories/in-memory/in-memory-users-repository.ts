@@ -5,13 +5,6 @@ export class InMemoryUsersRepository implements IUsersRepository {
 	// in-memory mock database
 	public items: User[] = []
 
-	async findByEmail(email: string): Promise<User | null> {
-		// find by email
-		const user = this.items.find((item) => item.email === email)
-
-		return user || null
-	}
-
 	async create(data: Prisma.UserCreateInput): Promise<User> {
 		// new user
 		const user = {
@@ -25,5 +18,19 @@ export class InMemoryUsersRepository implements IUsersRepository {
 		this.items.push(user)
 
 		return user
+	}
+
+	async findById(id: string): Promise<User | null> {
+		// find by id
+		const user = this.items.find((item) => item.id === id)
+
+		return user || null
+	}
+
+	async findByEmail(email: string): Promise<User | null> {
+		// find by email
+		const user = this.items.find((item) => item.email === email)
+
+		return user || null
 	}
 }
