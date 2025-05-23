@@ -1,7 +1,6 @@
-import { expect, describe, it } from 'vitest'
+import { beforeEach, afterEach, expect, describe, it, vi } from 'vitest'
 import { CheckInUseCase } from './check-in-use-case'
 import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-check-ins-repositories'
-import { beforeEach } from 'vitest'
 
 let checkInsRepository: InMemoryCheckInsRepository
 let sut: CheckInUseCase
@@ -11,6 +10,13 @@ describe('Check-in Use Case', () => {
 		// in-memory mock database
 		checkInsRepository = new InMemoryCheckInsRepository()
 		sut = new CheckInUseCase(checkInsRepository)
+		// Enable fix datetime
+		vi.useFakeTimers()
+	})
+
+	afterEach(() => {
+		// Run real datetime again
+		vi.useRealTimers()
 	})
 
 	it('should be able to check in', async () => {
