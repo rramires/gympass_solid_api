@@ -8,6 +8,16 @@ let checkInsRepository: InMemoryCheckInsRepository
 let gymsRepository: InMemoryGymsRepository
 let sut: CheckInUseCase
 
+const coordinates = {
+	lat: -25.4677004,
+	lon: -49.304584,
+}
+
+const coordinatesPlus100 = {
+	lat: -25.467068,
+	lon: -49.298002,
+}
+
 describe('Check-in Use Case', () => {
 	beforeEach(() => {
 		// in-memory mock database
@@ -20,8 +30,8 @@ describe('Check-in Use Case', () => {
 			title: 'TypeScript Gym',
 			description: 'Best Gyn in the city',
 			phone: '9999-8888',
-			latitude: new Decimal(0),
-			longitude: new Decimal(0),
+			latitude: new Decimal(coordinates.lat),
+			longitude: new Decimal(coordinates.lon),
 		})
 		// Enable fix datetime
 		vi.useFakeTimers()
@@ -37,8 +47,8 @@ describe('Check-in Use Case', () => {
 		const { checkIn } = await sut.execute({
 			userId: 'user-01',
 			gymId: 'gym-01',
-			userLatitude: 0,
-			userLongitude: 0,
+			userLatitude: coordinates.lat,
+			userLongitude: coordinates.lon,
 		})
 		// return id string
 		expect(checkIn.id).toEqual(expect.any(String))
@@ -51,16 +61,16 @@ describe('Check-in Use Case', () => {
 		await sut.execute({
 			userId: 'user-01',
 			gymId: 'gym-01',
-			userLatitude: 0,
-			userLongitude: 0,
+			userLatitude: coordinates.lat,
+			userLongitude: coordinates.lon,
 		})
 		// Try 2º check in
 		await expect(
 			sut.execute({
 				userId: 'user-01',
 				gymId: 'gym-01',
-				userLatitude: 0,
-				userLongitude: 0,
+				userLatitude: coordinates.lat,
+				userLongitude: coordinates.lon,
 			}),
 		).rejects.toBeInstanceOf(Error)
 	})
@@ -72,8 +82,8 @@ describe('Check-in Use Case', () => {
 		await sut.execute({
 			userId: 'user-01',
 			gymId: 'gym-01',
-			userLatitude: 0,
-			userLongitude: 0,
+			userLatitude: coordinates.lat,
+			userLongitude: coordinates.lon,
 		})
 		// Fix different date
 		vi.setSystemTime(new Date('2025-05-23T08:00:00Z'))
@@ -81,10 +91,22 @@ describe('Check-in Use Case', () => {
 		const { checkIn } = await sut.execute({
 			userId: 'user-01',
 			gymId: 'gym-01',
-			userLatitude: 0,
-			userLongitude: 0,
+			userLatitude: coordinates.lat,
+			userLongitude: coordinates.lon,
 		})
 		// return id string
 		expect(checkIn.id).toEqual(expect.any(String))
+	})
+
+	it('should not be able to check in on distant gym', async () => {
+		// The coordinates of this new user are more than 100m from the gym-01 gym
+		await expect(
+			sut.execute({
+				userId: 'user-01',
+				gymId: 'gym-01',
+				userLatitude: coordinatesPlus100.lat,
+				userLongitude: coordinatesPlus100.lon,
+			}),
+		).rejects.toBeInstanceOf(Error)
 	})
 })
