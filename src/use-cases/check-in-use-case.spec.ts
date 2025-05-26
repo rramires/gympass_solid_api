@@ -2,7 +2,6 @@ import { beforeEach, afterEach, expect, describe, it, vi } from 'vitest'
 import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-check-ins-repository'
 import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository'
 import { CheckInUseCase } from './check-in-use-case'
-import { Decimal } from '@prisma/client/runtime/library'
 
 let checkInsRepository: InMemoryCheckInsRepository
 let gymsRepository: InMemoryGymsRepository
@@ -19,20 +18,22 @@ const coordinatesPlus100 = {
 }
 
 describe('Check-in Use Case', () => {
-	beforeEach(() => {
+	beforeEach(async () => {
 		// in-memory mock database
 		checkInsRepository = new InMemoryCheckInsRepository()
 		gymsRepository = new InMemoryGymsRepository()
 		sut = new CheckInUseCase(checkInsRepository, gymsRepository)
+
 		// mock gym
-		gymsRepository.items.push({
+		await gymsRepository.create({
 			id: 'gym-01',
 			title: 'TypeScript Gym',
 			description: 'Best Gyn in the city',
 			phone: '9999-8888',
-			latitude: new Decimal(coordinates.lat),
-			longitude: new Decimal(coordinates.lon),
+			latitude: coordinates.lat,
+			longitude: coordinates.lon,
 		})
+
 		// Enable fix datetime
 		vi.useFakeTimers()
 	})
