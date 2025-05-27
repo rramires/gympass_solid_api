@@ -3,6 +3,8 @@ import { ICheckInsRepository } from '../i-check-ins-repository'
 import { randomUUID } from 'node:crypto'
 import dayjs from 'dayjs'
 
+const PAGE_SIZE = 20
+
 export class InMemoryCheckInsRepository implements ICheckInsRepository {
 	// in-memory mock database
 	public items: CheckIn[] = []
@@ -38,6 +40,6 @@ export class InMemoryCheckInsRepository implements ICheckInsRepository {
 	async findManyByUserId(userId: string, page: number): Promise<CheckIn[]> {
 		return this.items
 			.filter((item) => item.user_id === userId)
-			.slice((page - 1) * 20, page * 20)
+			.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 	}
 }

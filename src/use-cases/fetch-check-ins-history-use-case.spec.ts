@@ -28,6 +28,7 @@ describe('Fetch Check-in History Use Case', () => {
 			userId: 'user-01',
 			page: 1,
 		})
+
 		// check
 		expect(checkIns).toHaveLength(2)
 		expect(checkIns).toEqual([
@@ -50,6 +51,7 @@ describe('Fetch Check-in History Use Case', () => {
 			userId: 'user-01',
 			page: 2,
 		})
+
 		// check
 		expect(checkIns).toHaveLength(2)
 		expect(checkIns).toEqual([
