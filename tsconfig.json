@@ -111,7 +111,6 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
   "exclude": [
-    "__tests__",
     "tsup.config.ts",
     "src/prisma-client"
   ]

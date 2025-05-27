@@ -9,7 +9,7 @@ export class InMemoryCheckInsRepository implements ICheckInsRepository {
 	// in-memory mock database
 	public items: CheckIn[] = []
 
-	async create(data: Prisma.CheckInUncheckedCreateInput): Promise<CheckIn> {
+	async create(data: Prisma.CheckInUncheckedCreateInput) {
 		// new checkIn
 		const checkIn = {
 			id: randomUUID(),
@@ -23,7 +23,7 @@ export class InMemoryCheckInsRepository implements ICheckInsRepository {
 		return checkIn
 	}
 
-	async findByUserIdOnDate(userId: string, date: Date): Promise<CheckIn | null> {
+	async findByUserIdOnDate(userId: string, date: Date) {
 		const startOfTheDay = dayjs(date).startOf('date') // 2025-05-22T00:00:00Z
 		const endtOfTheDay = dayjs(date).endOf('date') //    2025-05-22T23:59:59Z
 
@@ -37,13 +37,13 @@ export class InMemoryCheckInsRepository implements ICheckInsRepository {
 		return checkInOnSameDate || null
 	}
 
-	async findManyByUserId(userId: string, page: number): Promise<CheckIn[]> {
+	async findManyByUserId(userId: string, page: number) {
 		return this.items
 			.filter((item) => item.user_id === userId)
 			.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 	}
 
-	async countByUserId(userId: string): Promise<number> {
+	async countByUserId(userId: string) {
 		return this.items.filter((item) => item.user_id === userId).length
 	}
 }

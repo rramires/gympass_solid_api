@@ -7,7 +7,7 @@ export class InMemoryGymsRepository implements IGymsRepository {
 	// in-memory mock database
 	public items: Gym[] = []
 
-	async create(data: GymCreateInput): Promise<Gym> {
+	async create(data: GymCreateInput) {
 		// new gym
 		const gym = {
 			id: data.id ?? randomUUID(),
@@ -23,7 +23,7 @@ export class InMemoryGymsRepository implements IGymsRepository {
 		return gym
 	}
 
-	async findById(id: string): Promise<Gym | null> {
+	async findById(id: string) {
 		// find by id
 		const gym = this.items.find((item) => item.id === id)
 

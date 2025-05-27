@@ -6,7 +6,7 @@ export class InMemoryUsersRepository implements IUsersRepository {
 	// in-memory mock database
 	public items: User[] = []
 
-	async create(data: Prisma.UserCreateInput): Promise<User> {
+	async create(data: Prisma.UserCreateInput) {
 		// new user
 		const user = {
 			id: randomUUID(),
@@ -20,7 +20,7 @@ export class InMemoryUsersRepository implements IUsersRepository {
 		return user
 	}
 
-	async findById(id: string): Promise<User | null> {
+	async findById(id: string) {
 		// find by id
 		const user = this.items.find((item) => item.id === id)
 
