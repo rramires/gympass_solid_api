@@ -29,7 +29,7 @@ describe('Search Gyms Use Case', () => {
 
 		await gymsRepository.create({
 			title: 'JavaScript Gym',
-			description: 'Best TS Gyn in the city',
+			description: 'Best JS Gyn in the city',
 			phone: '8888-7777',
 			latitude: coordinates.lat,
 			longitude: coordinates.lon,
