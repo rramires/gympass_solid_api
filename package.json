@@ -35,6 +35,7 @@
   },
   "homepage": "https://github.com/rramires/gympass_solid_api#readme",
   "dependencies": {
+    "@fastify/jwt": "9.1.0",
     "@prisma/client": "6.8.2",
     "@types/bcryptjs": "2.4.6",
     "@vitest/ui": "3.1.3",

@@ -12,10 +12,23 @@ export async function authenticateController(request: FastifyRequest, reply: Fas
 
 	try {
 		const authenticateUseCase = makeAuthenticateUseCase()
-		await authenticateUseCase.execute({
+		const { user } = await authenticateUseCase.execute({
 			email,
 			password,
 		})
+		// JWT
+		const token = await reply.jwtSign(
+			{},
+			{
+				sign: {
+					sub: user.id,
+				},
+			},
+		)
+		return reply.status(200).send({
+			token,
+		})
+		//
 	} catch (err) {
 		if (err instanceof InvalidCredentialsError) {
 			// 401 Unauthorized
@@ -24,6 +37,4 @@ export async function authenticateController(request: FastifyRequest, reply: Fas
 		// Other unspecified errors (Fastify capture this)
 		throw err
 	}
-
-	return reply.status(200).send()
 }
