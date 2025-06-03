@@ -3,6 +3,7 @@ import { hello } from './controllers/hello'
 import { registerController } from './controllers/register-controller'
 import { authenticateController } from './controllers/authenticate-controller'
 import { profileController } from './controllers/profile-controller'
+import { verifyJwtMiddleware } from './middlewares/verify-jwt-middleware'
 
 export async function appRoutes(app: FastifyInstance) {
 	/**
@@ -14,5 +15,5 @@ export async function appRoutes(app: FastifyInstance) {
 	/**
 	 * Authenticated routes
 	 */
-	app.get('/me', profileController)
+	app.get('/me', { onRequest: [verifyJwtMiddleware] }, profileController)
 }
