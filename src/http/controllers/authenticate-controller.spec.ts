@@ -19,9 +19,17 @@ describe('Register (e2e)', () => {
 		await app.close()
 	})
 
-	it('should be able to register', async () => {
-		const response = await request(app.server).post('/users').send(user)
+	it('should be able to authenticate', async () => {
+		await request(app.server).post('/users').send(user)
 
-		expect(response.statusCode).toEqual(201)
+		const response = await request(app.server).post('/sessions').send({
+			email: user.email,
+			password: user.password,
+		})
+
+		expect(response.statusCode).toEqual(200)
+		expect(response.body).toEqual({
+			token: expect.any(String),
+		})
 	})
 })
