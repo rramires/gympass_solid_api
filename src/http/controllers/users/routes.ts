@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify'
-import { hello } from './hello'
+import { helloController } from './hello-controller'
 import { registerController } from './register-controller'
 import { authenticateController } from './authenticate-controller'
 import { profileController } from './profile-controller'
@@ -9,7 +9,8 @@ export async function usersRoutes(app: FastifyInstance) {
 	/**
 	 * Unauthenticated routes
 	 */
-	app.get('/hello', hello)
+	app.get('/hello', helloController)
+	//
 	app.post('/users', registerController)
 	app.post('/sessions', authenticateController)
 	/**
