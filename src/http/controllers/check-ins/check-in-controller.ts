@@ -3,6 +3,8 @@ import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 
 export async function checkInController(request: FastifyRequest, reply: FastifyReply) {
+	const { sub: userId } = request.user
+
 	const paramsSchema = z.object({
 		gymId: z.string().uuid(),
 	})
@@ -18,11 +20,8 @@ export async function checkInController(request: FastifyRequest, reply: FastifyR
 	})
 	const { latitude, longitude } = bodySchema.parse(request.query)
 
-	const { sub: userId } = request.user
-
-	const createGymUseCase = makeCheckInUseCase()
-
-	await createGymUseCase.execute({
+	const checkInUseCase = makeCheckInUseCase()
+	await checkInUseCase.execute({
 		userId,
 		gymId,
 		userLatitude: latitude,

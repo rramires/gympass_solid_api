@@ -1,6 +1,9 @@
 import { FastifyInstance } from 'fastify'
 import { verifyJwtMiddleware } from '@/http/middlewares/verify-jwt-middleware'
-import { checkInController } from './check-inController'
+import { checkInController } from './check-in-controller'
+import { validateController } from './validate-controller'
+import { historyController } from './history-controller'
+import { metricsController } from './metrics-controller'
 
 export async function checkInsRoutes(app: FastifyInstance) {
 	/**
@@ -8,8 +11,9 @@ export async function checkInsRoutes(app: FastifyInstance) {
 	 */
 	app.addHook('onRequest', verifyJwtMiddleware)
 	//
-	/* app.get('/gyms/search', searchController)
-	app.get('/gyms/nearby', nearbyController)*/
+	app.get('/check-ins/history', historyController)
+	app.get('/check-ins/metrics', metricsController)
 	//
 	app.post('/gyms/:gymId/check-ins', checkInController)
+	app.patch('/check-ins/:checkInId/validate', validateController)
 }

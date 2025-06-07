@@ -17,7 +17,6 @@ export async function createController(request: FastifyRequest, reply: FastifyRe
 	const { title, description, phone, latitude, longitude } = bodySchema.parse(request.body)
 
 	const createGymUseCase = makeCreateGymUseCase()
-
 	await createGymUseCase.execute({
 		title,
 		description,

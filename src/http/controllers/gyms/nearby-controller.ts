@@ -14,7 +14,6 @@ export async function nearbyController(request: FastifyRequest, reply: FastifyRe
 	const { latitude, longitude } = bodySchema.parse(request.query)
 
 	const fetchNearbyGymsUseCase = makeFetchNearbyGymsUseCase()
-
 	const gyms = await fetchNearbyGymsUseCase.execute({
 		userLatitude: latitude,
 		userLongitude: longitude,
