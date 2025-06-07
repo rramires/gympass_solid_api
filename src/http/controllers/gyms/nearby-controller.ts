@@ -4,10 +4,14 @@ import { z } from 'zod'
 
 export async function nearbyController(request: FastifyRequest, reply: FastifyReply) {
 	const bodySchema = z.object({
-		latitude: z.number(),
-		longitude: z.number(),
+		latitude: z.number().refine((value) => {
+			return Math.abs(value) <= 90
+		}),
+		longitude: z.number().refine((value) => {
+			return Math.abs(value) <= 180
+		}),
 	})
-	const { latitude, longitude } = bodySchema.parse(request.body)
+	const { latitude, longitude } = bodySchema.parse(request.query)
 
 	const fetchNearbyGymsUseCase = makeFetchNearbyGymsUseCase()
 
