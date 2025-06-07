@@ -1,5 +1,6 @@
 import { FastifyInstance } from 'fastify'
 import { verifyJwtMiddleware } from '@/http/middlewares/verify-jwt-middleware'
+import { createController } from './create-controller'
 
 export async function gymsRoutes(app: FastifyInstance) {
 	/**
@@ -7,5 +8,5 @@ export async function gymsRoutes(app: FastifyInstance) {
 	 */
 	app.addHook('onRequest', verifyJwtMiddleware)
 	//
-	//app.get('/sample', sampleController)
+	app.post('/gyms', createController)
 }
