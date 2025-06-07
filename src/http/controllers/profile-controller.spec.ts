@@ -8,7 +8,7 @@ const user = {
 	password: '123456',
 }
 
-describe('Register (e2e)', () => {
+describe('Profile (e2e)', () => {
 	beforeAll(async () => {
 		// running app
 		await app.ready()
@@ -19,19 +19,28 @@ describe('Register (e2e)', () => {
 		await app.close()
 	})
 
-	it('should be able to authenticate', async () => {
+	it('should be able to get user profile', async () => {
 		// create user
 		await request(app.server).post('/users').send(user)
 
 		// authenticate
-		const response = await request(app.server).post('/sessions').send({
+		const authResponse = await request(app.server).post('/sessions').send({
 			email: user.email,
 			password: user.password,
 		})
+		const { token } = authResponse.body
 
-		expect(response.statusCode).toEqual(200)
-		expect(response.body).toEqual({
-			token: expect.any(String),
-		})
+		// get profile
+		const profileResponse = await request(app.server)
+			.get('/me')
+			.set('Authorization', `Bearer ${token}`)
+			.send()
+
+		expect(profileResponse.statusCode).toEqual(200)
+		expect(profileResponse.body.user).toEqual(
+			expect.objectContaining({
+				name: user.name,
+			}),
+		)
 	})
 })
