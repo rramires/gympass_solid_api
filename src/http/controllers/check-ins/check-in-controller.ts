@@ -18,7 +18,7 @@ export async function checkInController(request: FastifyRequest, reply: FastifyR
 			return Math.abs(value) <= 180
 		}),
 	})
-	const { latitude, longitude } = bodySchema.parse(request.query)
+	const { latitude, longitude } = bodySchema.parse(request.body)
 
 	const checkInUseCase = makeCheckInUseCase()
 	await checkInUseCase.execute({

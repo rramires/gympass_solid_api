@@ -7,17 +7,17 @@ export async function createController(request: FastifyRequest, reply: FastifyRe
 		title: z.string(),
 		description: z.string().nullable(),
 		phone: z.string().nullable(),
-		latitude: z.number().refine((value) => {
+		latitude: z.coerce.number().refine((value) => {
 			return Math.abs(value) <= 90
 		}),
-		longitude: z.number().refine((value) => {
+		longitude: z.coerce.number().refine((value) => {
 			return Math.abs(value) <= 180
 		}),
 	})
 	const { title, description, phone, latitude, longitude } = bodySchema.parse(request.body)
 
 	const createGymUseCase = makeCreateGymUseCase()
-	await createGymUseCase.execute({
+	const { gym } = await createGymUseCase.execute({
 		title,
 		description,
 		phone,
@@ -25,5 +25,7 @@ export async function createController(request: FastifyRequest, reply: FastifyRe
 		longitude,
 	})
 
-	return reply.status(201).send()
+	return reply.status(201).send({
+		gym,
+	})
 }

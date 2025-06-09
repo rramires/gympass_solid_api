@@ -8,7 +8,7 @@ export async function historyController(request: FastifyRequest, reply: FastifyR
 	const bodySchema = z.object({
 		page: z.coerce.number().min(1).default(1),
 	})
-	const { page } = bodySchema.parse(request.query)
+	const { page } = bodySchema.parse(request.body)
 
 	const fetchCheckInsHistoryUseCase = makeFetchCheckInsHistoryUseCase()
 
