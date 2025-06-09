@@ -4,7 +4,7 @@ import { app } from '@/app'
 import createAndAuthUser from '@/utils/tests/create-and-auth-user'
 import getTestCoordinates from '@/utils/tests/get-test-coordinates'
 
-describe('Search Gyms (e2e)', () => {
+describe('Nearby Gyms (e2e)', () => {
 	beforeAll(async () => {
 		// running app
 		await app.ready()
@@ -15,14 +15,14 @@ describe('Search Gyms (e2e)', () => {
 		await app.close()
 	})
 
-	it('should be able to search gyms by title', async () => {
+	it('should be able to list nearby gyms', async () => {
 		// get auth user
 		const { token } = await createAndAuthUser(app)
 
 		// get test positions
-		const { coordinates } = getTestCoordinates()
+		const { coordinates, coordinatesPlus5km, coordinatesPlus10km } = getTestCoordinates()
 
-		// create two gyms
+		// create three gyms
 		await request(app.server).post('/gyms').set('Authorization', `Bearer ${token}`).send({
 			title: 'TypeScrypt Gym',
 			description: 'Best TS Gyn in the city',
@@ -35,24 +35,32 @@ describe('Search Gyms (e2e)', () => {
 			title: 'JavaScript Gym',
 			description: 'Best JS Gyn in the city',
 			phone: '8888-7777',
-			latitude: coordinates.lat,
-			longitude: coordinates.lon,
+			latitude: coordinatesPlus5km.lat,
+			longitude: coordinatesPlus5km.lon,
+		})
+
+		await request(app.server).post('/gyms').set('Authorization', `Bearer ${token}`).send({
+			title: 'JavaScript Gym',
+			description: 'Best JS Gyn in the city',
+			phone: '8888-7777',
+			latitude: coordinatesPlus10km.lat,
+			longitude: coordinatesPlus10km.lon,
 		})
 
 		const response = await request(app.server)
-			.get('/gyms/search')
+			.get('/gyms/nearby')
 			.query({
-				query: 'JavaScript',
+				latitude: coordinates.lat,
+				longitude: coordinates.lon,
 			})
 			.set('Authorization', `Bearer ${token}`)
 			.send()
 
 		expect(response.statusCode).toEqual(200)
-		expect(response.body.gyms).toHaveLength(1)
+		expect(response.body.gyms).toHaveLength(2)
 		expect(response.body.gyms).toEqual([
-			expect.objectContaining({
-				title: 'JavaScript Gym',
-			}),
+			expect.objectContaining({ title: 'TypeScrypt Gym' }),
+			expect.objectContaining({ title: 'JavaScript Gym' }),
 		])
 	})
 })
