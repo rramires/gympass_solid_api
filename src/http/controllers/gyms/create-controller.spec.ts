@@ -22,7 +22,7 @@ describe('Create Gyn (e2e)', () => {
 		// get test positions
 		const { coordinates } = getTestCoordinates()
 
-		// get profile
+		// create gym
 		const response = await request(app.server)
 			.post('/gyms')
 			.set('Authorization', `Bearer ${token}`)

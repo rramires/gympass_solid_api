@@ -10,7 +10,7 @@ export async function searchController(request: FastifyRequest, reply: FastifyRe
 	const { query, page } = bodySchema.parse(request.query)
 
 	const searchGymsUseCase = makeSearchGymsUseCase()
-	const gyms = await searchGymsUseCase.execute({
+	const { gyms } = await searchGymsUseCase.execute({
 		query,
 		page,
 	})
