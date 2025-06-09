@@ -11,10 +11,10 @@ export async function checkInController(request: FastifyRequest, reply: FastifyR
 	const { gymId } = paramsSchema.parse(request.params)
 
 	const bodySchema = z.object({
-		latitude: z.number().refine((value) => {
+		latitude: z.coerce.number().refine((value) => {
 			return Math.abs(value) <= 90
 		}),
-		longitude: z.number().refine((value) => {
+		longitude: z.coerce.number().refine((value) => {
 			return Math.abs(value) <= 180
 		}),
 	})
