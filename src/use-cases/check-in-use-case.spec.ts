@@ -4,20 +4,14 @@ import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-
 import { CheckInUseCase } from './check-in-use-case'
 import { MaxDistanceError } from './errors/max-distance.error'
 import { MaxCheckInsReachedError } from './errors/max-check-ins-reached-error'
+import getTestCoordinates from '@/utils/tests/get-test-coordinates'
 
 let checkInsRepository: InMemoryCheckInsRepository
 let gymsRepository: InMemoryGymsRepository
 let sut: CheckInUseCase
 
-const coordinates = {
-	lat: -25.4677004,
-	lon: -49.304584,
-}
-
-const coordinatesPlus100 = {
-	lat: -25.467068,
-	lon: -49.298002,
-}
+// get test positions
+const { coordinates, coordinatesPlus10km } = getTestCoordinates()
 
 describe('Check-in Use Case', () => {
 	beforeEach(async () => {
@@ -107,8 +101,8 @@ describe('Check-in Use Case', () => {
 			sut.execute({
 				userId: 'user-01',
 				gymId: 'gym-01',
-				userLatitude: coordinatesPlus100.lat,
-				userLongitude: coordinatesPlus100.lon,
+				userLatitude: coordinatesPlus10km.lat,
+				userLongitude: coordinatesPlus10km.lon,
 			}),
 		).rejects.toBeInstanceOf(MaxDistanceError)
 	})

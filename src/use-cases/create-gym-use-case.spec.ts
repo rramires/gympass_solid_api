@@ -2,11 +2,10 @@ import { expect, describe, it } from 'vitest'
 import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository'
 import { beforeEach } from 'vitest'
 import { CreateGymUseCase } from './create-gym-use-case'
+import getTestCoordinates from '@/utils/tests/get-test-coordinates'
 
-const coordinates = {
-	lat: -25.4677004,
-	lon: -49.304584,
-}
+// get test position
+const { coordinates } = getTestCoordinates()
 
 let gymsRepository: InMemoryGymsRepository
 let sut: CreateGymUseCase

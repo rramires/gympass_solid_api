@@ -1,14 +1,13 @@
 import { beforeEach, expect, describe, it } from 'vitest'
 import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository'
 import { SearchGymsUseCase } from './search-gyms-use-case'
+import getTestCoordinates from '@/utils/tests/get-test-coordinates'
 
 let gymsRepository: InMemoryGymsRepository
 let sut: SearchGymsUseCase
 
-const coordinates = {
-	lat: -25.4677004,
-	lon: -49.304584,
-}
+// get test positions
+const { coordinates } = getTestCoordinates()
 
 describe('Search Gyms Use Case', () => {
 	beforeEach(async () => {
