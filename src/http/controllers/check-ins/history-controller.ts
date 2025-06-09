@@ -8,16 +8,16 @@ export async function historyController(request: FastifyRequest, reply: FastifyR
 	const bodySchema = z.object({
 		page: z.coerce.number().min(1).default(1),
 	})
-	const { page } = bodySchema.parse(request.body)
+	const { page } = bodySchema.parse(request.query)
 
 	const fetchCheckInsHistoryUseCase = makeFetchCheckInsHistoryUseCase()
 
-	const gyms = await fetchCheckInsHistoryUseCase.execute({
+	const { checkIns } = await fetchCheckInsHistoryUseCase.execute({
 		userId,
 		page,
 	})
 
 	return reply.status(200).send({
-		gyms,
+		checkIns,
 	})
 }

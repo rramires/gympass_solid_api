@@ -26,8 +26,6 @@ export class ValidateCheckInUseCase {
 
 		const delayFromCheckInCreation = dayjs(new Date()).diff(checkIn.created_at, 'minutes')
 
-		console.log('delayFromCheckInCreation', delayFromCheckInCreation)
-
 		if (delayFromCheckInCreation > 20) {
 			throw new LateCheckInValidationError()
 		}

@@ -17,7 +17,7 @@ describe('Check-in History (e2e)', () => {
 
 	it('should be able to list the history of check-ins', async () => {
 		// get auth user
-		const { token } = await createAndAuthUser(app)
+		const { token, user } = await createAndAuthUser(app)
 
 		// get test positions
 		const { coordinates } = getTestCoordinates()
@@ -35,7 +35,8 @@ describe('Check-in History (e2e)', () => {
 			})
 		const { id: gymId } = responseGym.body.gym
 
-		const response = await request(app.server)
+		// create check-in
+		await request(app.server)
 			.post(`/gyms/${gymId}/check-ins`)
 			.set('Authorization', `Bearer ${token}`)
 			.send({
@@ -43,6 +44,18 @@ describe('Check-in History (e2e)', () => {
 				longitude: coordinates.lon,
 			})
 
-		expect(response.statusCode).toEqual(201)
+		// get check-in history
+		const response = await request(app.server)
+			.get('/check-ins/history')
+			.set('Authorization', `Bearer ${token}`)
+			.send()
+
+		expect(response.statusCode).toEqual(200)
+		expect(response.body.checkIns).toEqual([
+			expect.objectContaining({
+				gym_id: gymId,
+				user_id: user.id,
+			}),
+		])
 	})
 })

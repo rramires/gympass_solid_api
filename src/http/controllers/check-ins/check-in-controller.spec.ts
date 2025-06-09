@@ -35,6 +35,7 @@ describe('Check-in (e2e)', () => {
 			})
 		const { id: gymId } = responseGym.body.gym
 
+		// create check-in
 		const response = await request(app.server)
 			.post(`/gyms/${gymId}/check-ins`)
 			.set('Authorization', `Bearer ${token}`)
