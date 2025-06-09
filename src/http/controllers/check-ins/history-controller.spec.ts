@@ -4,7 +4,7 @@ import { app } from '@/app'
 import createAndAuthUser from '@/utils/tests/create-and-auth-user'
 import getTestCoordinates from '@/utils/tests/get-test-coordinates'
 
-describe('Check-in (e2e)', () => {
+describe('Check-in History (e2e)', () => {
 	beforeAll(async () => {
 		// running app
 		await app.ready()
@@ -15,7 +15,7 @@ describe('Check-in (e2e)', () => {
 		await app.close()
 	})
 
-	it('should be able to create a check-in', async () => {
+	it('should be able to list the history of check-ins', async () => {
 		// get auth user
 		const { token } = await createAndAuthUser(app)
 
