@@ -9,9 +9,11 @@ export async function validateController(request: FastifyRequest, reply: Fastify
 	const { checkInId } = paramsSchema.parse(request.params)
 
 	const validateCheckInUseCase = makeValidateCheckInUseCase()
-	await validateCheckInUseCase.execute({
+	const { checkIn } = await validateCheckInUseCase.execute({
 		checkInId,
 	})
-	// 204 - No Content (But OK)
-	return reply.status(204).send()
+
+	return reply.status(200).send({
+		checkIn,
+	})
 }

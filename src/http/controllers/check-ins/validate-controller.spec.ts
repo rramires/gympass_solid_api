@@ -50,7 +50,9 @@ describe('Validate check-in (e2e)', () => {
 			.patch(`/check-ins/${checkInId}/validate`)
 			.set('Authorization', `Bearer ${token}`)
 			.send()
+		const { validated_at } = response.body.checkIn
 
-		expect(response.statusCode).toEqual(204)
+		expect(response.statusCode).toEqual(200)
+		expect(new Date(validated_at).getTime()).toBeGreaterThan(new Date(0).getTime())
 	})
 })
