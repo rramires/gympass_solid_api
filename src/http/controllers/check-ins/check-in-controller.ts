@@ -21,12 +21,15 @@ export async function checkInController(request: FastifyRequest, reply: FastifyR
 	const { latitude, longitude } = bodySchema.parse(request.body)
 
 	const checkInUseCase = makeCheckInUseCase()
-	await checkInUseCase.execute({
+	const response = await checkInUseCase.execute({
 		userId,
 		gymId,
 		userLatitude: latitude,
 		userLongitude: longitude,
 	})
+	const { checkIn } = response
 
-	return reply.status(201).send()
+	return reply.status(201).send({
+		checkIn,
+	})
 }
