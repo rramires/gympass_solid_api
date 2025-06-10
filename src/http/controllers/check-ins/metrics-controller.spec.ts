@@ -1,4 +1,4 @@
-import { describe, beforeAll, afterAll, it, expect } from 'vitest'
+import { describe, beforeAll, afterAll, it, expect, vi } from 'vitest'
 import request from 'supertest'
 import { app } from '@/app'
 import createAndAuthUser from '@/utils/tests/create-and-auth-user'
@@ -8,16 +8,21 @@ describe('Check-in Metrics (e2e)', () => {
 	beforeAll(async () => {
 		// running app
 		await app.ready()
+
+		// Enable fix datetime
+		vi.useFakeTimers()
 	})
 
 	afterAll(async () => {
 		// shutdown app
 		await app.close()
+		// Run real datetime again
+		vi.useRealTimers()
 	})
 
 	it('should be able to get the total count of of check-ins', async () => {
 		// get auth user
-		const { token, user } = await createAndAuthUser(app)
+		const { token } = await createAndAuthUser(app)
 
 		// get test positions
 		const { coordinates } = getTestCoordinates()
@@ -35,7 +40,20 @@ describe('Check-in Metrics (e2e)', () => {
 			})
 		const { id: gymId } = responseGym.body.gym
 
-		// create check-in
+		// create first check-in
+		await request(app.server)
+			.post(`/gyms/${gymId}/check-ins`)
+			.set('Authorization', `Bearer ${token}`)
+			.send({
+				latitude: coordinates.lat,
+				longitude: coordinates.lon,
+			})
+
+		// Advance in time
+		const oneDayInMs = 1000 * 60 * 60 * 24
+		vi.advanceTimersByTime(oneDayInMs)
+
+		// create second check-in
 		await request(app.server)
 			.post(`/gyms/${gymId}/check-ins`)
 			.set('Authorization', `Bearer ${token}`)
@@ -51,6 +69,6 @@ describe('Check-in Metrics (e2e)', () => {
 			.send()
 
 		expect(response.statusCode).toEqual(200)
-		expect(response.body.checkInsCount).toEqual(1)
+		expect(response.body.checkInsCount).toEqual(2)
 	})
 })
