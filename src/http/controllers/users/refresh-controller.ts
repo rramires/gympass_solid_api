@@ -4,9 +4,13 @@ export async function refreshController(request: FastifyRequest, reply: FastifyR
 	// Check if valid request cookie exists
 	await request.jwtVerify({ onlyCookie: true })
 
+	const { role } = request.user
+
 	// JWT
 	const token = await reply.jwtSign(
-		{},
+		{
+			role,
+		},
 		{
 			sign: {
 				sub: request.user.sub,
@@ -15,7 +19,9 @@ export async function refreshController(request: FastifyRequest, reply: FastifyR
 	)
 	//
 	const refreshToken = await reply.jwtSign(
-		{},
+		{
+			role,
+		},
 		{
 			sign: {
 				sub: request.user.sub,
