@@ -57,4 +57,5 @@ export type CheckIn = Prisma.CheckInModel
  */
 export type Gym = Prisma.GymModel
 
-
+export type Role = $Enums.Role
+export const Role = $Enums.Role
