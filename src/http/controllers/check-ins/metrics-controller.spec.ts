@@ -16,6 +16,7 @@ describe('Check-in Metrics (e2e)', () => {
 	afterAll(async () => {
 		// shutdown app
 		await app.close()
+
 		// Run real datetime again
 		vi.useRealTimers()
 	})
@@ -39,6 +40,9 @@ describe('Check-in Metrics (e2e)', () => {
 				longitude: coordinates.lon,
 			})
 		const { id: gymId } = responseGym.body.gym
+
+		// Fix date
+		vi.setSystemTime(new Date('2025-05-22T08:00:00Z'))
 
 		// create first check-in
 		await request(app.server)
