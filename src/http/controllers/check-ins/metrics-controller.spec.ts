@@ -23,7 +23,7 @@ describe('Check-in Metrics (e2e)', () => {
 
 	it('should be able to get the total count of of check-ins', async () => {
 		// get auth user
-		const { token } = await createAndAuthUser(app)
+		const { token } = await createAndAuthUser(app, true)
 
 		// get test positions
 		const { coordinates } = getTestCoordinates()

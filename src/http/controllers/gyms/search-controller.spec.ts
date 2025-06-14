@@ -17,7 +17,7 @@ describe('Search Gyms (e2e)', () => {
 
 	it('should be able to search gyms by title', async () => {
 		// get auth user
-		const { token } = await createAndAuthUser(app)
+		const { token } = await createAndAuthUser(app, true)
 
 		// get test positions
 		const { coordinates } = getTestCoordinates()
