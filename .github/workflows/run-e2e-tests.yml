@@ -29,5 +29,5 @@ jobs:
               env:
                   NODE_ENV: test
                   PORT: 3333
-                  JWT_SECRET: testing
+                  JWT_SECRET: acceptsMin20characters
                   DATABASE_URL: 'postgresql://docker:docker123@localhost:5432/gympass-db?schema=public'
