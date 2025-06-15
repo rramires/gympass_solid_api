@@ -25,6 +25,7 @@ jobs:
                   cache: 'npm'
             - run: npm ci
             - run: npm run test:e2e
+
               env:
                   NODE_ENV: test
                   PORT: 3333
